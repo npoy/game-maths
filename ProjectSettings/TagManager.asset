@@ -13,6 +13,13 @@ TagManager:
   - REMOVE
   - ADD
   - RESET
+  - MAGIC_DOOR
+  - BLUE_DOOR
+  - RED_DOOR
+  - GREEN_DOOR
+  - RED_KEY
+  - BLUE_KEY
+  - GOLD_KEY
   layers:
   - Default
   - TransparentFX
