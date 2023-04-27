@@ -13,7 +13,7 @@ public class AttributeManager : MonoBehaviour
     static public int INVISIBLE = 1;
     
     public Text attributeDisplay;
-    int attributes = 0;
+    public int attributes = 0;
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "MAGIC") {
@@ -28,6 +28,12 @@ public class AttributeManager : MonoBehaviour
             attributes |= INVISIBLE;
         } else if (other.gameObject.tag == "ANTIMAGIC") {
             attributes &= ~MAGIC;
+        } else if (other.gameObject.tag == "REMOVE") {
+            attributes &= ~(INTELLIGENCE | MAGIC);
+        } else if (other.gameObject.tag == "ADD") {
+            attributes |= (INTELLIGENCE | MAGIC | CHARISMA);
+        } else if (other.gameObject.tag == "RESET") {
+            attributes = 0;
         }
     }
 
