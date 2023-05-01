@@ -6,34 +6,26 @@ using System;
 
 public class AttributeManager : MonoBehaviour
 {
-    static public int MAGIC = 16;
-    static public int INTELLIGENCE = 8;
-    static public int CHARISMA = 4;
-    static public int FLY = 2;
-    static public int INVISIBLE = 1;
+    static public int BLUEKEY = 4;
+    static public int REDKEY = 2;
+    static public int GREENKEY = 1;
     
     public Text attributeDisplay;
     public int attributes = 0;
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "MAGIC") {
-            attributes |= MAGIC;
-        } else if (other.gameObject.tag == "INTELLIGENCE") {
-            attributes |= INTELLIGENCE;
-        } else if (other.gameObject.tag == "CHARISMA") {
-            attributes |= CHARISMA;
-        } else if (other.gameObject.tag == "FLY") {
-            attributes |= FLY;
-        } else if (other.gameObject.tag == "INVISIBLE") {
-            attributes |= INVISIBLE;
-        } else if (other.gameObject.tag == "ANTIMAGIC") {
-            attributes &= ~MAGIC;
-        } else if (other.gameObject.tag == "REMOVE") {
-            attributes &= ~(INTELLIGENCE | MAGIC);
-        } else if (other.gameObject.tag == "ADD") {
-            attributes |= (INTELLIGENCE | MAGIC | CHARISMA);
-        } else if (other.gameObject.tag == "RESET") {
-            attributes = 0;
+        if (other.gameObject.tag == "BLUE_KEY") {
+            attributes |= BLUEKEY;
+            Destroy(other.gameObject);
+        } else if (other.gameObject.tag == "RED_KEY") {
+            attributes |= REDKEY;
+            Destroy(other.gameObject);
+        } else if (other.gameObject.tag == "GREEN_KEY") {
+            attributes |= GREENKEY;
+             Destroy(other.gameObject);
+        } else if (other.gameObject.tag == "GOLD_KEY") {
+            attributes |= (BLUEKEY | REDKEY | GREENKEY);
+            Destroy(other.gameObject);
         }
     }
 
