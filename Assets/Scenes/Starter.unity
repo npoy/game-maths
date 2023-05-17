@@ -1031,7 +1031,7 @@ GameObject:
   - component: {fileID: 981900412}
   - component: {fileID: 981900411}
   m_Layer: 5
-  m_Name: EnergyPos
+  m_Name: EnergyAmt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1198,6 +1198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   rotationSpeed: 100
+  energyAmt: {fileID: 981900411}
 --- !u!1 &1273818658
 GameObject:
   m_ObjectHideFlags: 0

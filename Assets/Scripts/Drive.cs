@@ -17,6 +17,8 @@ public class Drive : MonoBehaviour
 
     void Update()
     {
+        if (float.Parse(energyAmt.text) <= 0) return;
+
         // Get the horizontal and vertical axis.
         // By default they are mapped to the arrow keys.
         // The value is in the range -1 to 1
