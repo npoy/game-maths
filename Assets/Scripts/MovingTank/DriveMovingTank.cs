@@ -5,27 +5,26 @@ using System.Collections;
 
 public class DriveMovingTank : MonoBehaviour
 {
-    Vector2 Up = new Vector2(0, 0.1f);
-    // Vector2 Down = new Vector2(0, -0.1f);
-    Vector2 Left = new Vector2(-0.1f, 0);
-    // Vector2 Right = new Vector2(0.1f, 0);
+    Vector2 Up = new Vector2(0, 1);
+    Vector2 Right = new Vector2(1, 0);
+    float speed = 0.2f;
 
     void Update()
     {
         Vector3 position = this.transform.position;
 
         if (Input.GetKey(KeyCode.UpArrow)) {
-            position.x += Up.x;
-            position.y += Up.y;
+            position.x += Up.x * speed;
+            position.y += Up.y * speed;
         } else if (Input.GetKey(KeyCode.DownArrow)) {
-            position.x += -Up.x;
-            position.y += -Up.y;
+            position.x += -Up.x * speed;
+            position.y += -Up.y * speed;
         } else if (Input.GetKey(KeyCode.LeftArrow)) {
-            position.x += Left.x;
-            position.y += Left.y;
+            position.x += -Right.x * speed;
+            position.y += -Right.y * speed;
         } else if (Input.GetKey(KeyCode.RightArrow)) {
-            position.x += -Left.x;
-            position.y += -Left.y;
+            position.x += Right.x * speed;
+            position.y += Right.y * speed;
         }
        
         this.transform.position = position;
