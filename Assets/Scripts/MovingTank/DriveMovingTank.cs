@@ -14,10 +14,16 @@ public class DriveMovingTank : MonoBehaviour
 
     void Start() {
         direction = fuel.transform.position - this.transform.position;
-        Debug.Log("Tank: " + this.name + ", direction: " + direction);
+        // Debug.Log("Tank: " + this.name + ", direction: " + direction);
         CoordsMovingTank dirNormal = HolisticMath.GetNormal(new CoordsMovingTank(direction));
         direction = dirNormal.ToVector();
-        Debug.Log("Tank: " + this.name + ", normal: " + direction);
+        // Debug.Log("Tank: " + this.name + ", normal: " + direction);
+        float angle = HolisticMath.Angle(new CoordsMovingTank(0, 1, 0), new CoordsMovingTank(direction));
+
+        bool clockwise = false;
+        if (HolisticMath.Cross(new CoordsMovingTank(this.transform.up), dirNormal).z < 0) clockwise = true;
+        CoordsMovingTank newDir = HolisticMath.Rotate(new CoordsMovingTank(this.transform.up), angle, clockwise);
+        this.transform.up = new Vector3(newDir.x, newDir.y, newDir.z);
     }
 
     void Update()
@@ -25,11 +31,9 @@ public class DriveMovingTank : MonoBehaviour
         if (HolisticMath.Distance(new CoordsMovingTank(this.transform.position), new CoordsMovingTank(fuel.transform.position)) > stoppingDistance) {
         // if (Vector3.Distance(this.transform.position, fuel.transform.position) > stoppingDistance) {
             // Vector3 direction = direction = fuel.transform.position - this.transform.position; // For slowness at the end of the movement
-            Vector3 test = direction * speed * Time.deltaTime;
-            Debug.Log(this.name + " movement: " + test); // this is to have the same lenght on both so we can calculate. It's not the real distance, it's the vector normal
-            this.transform.position += test;
-
-            // testear dividiendo x e y por la hipotenusa
+            Vector3 positionDiff = direction * speed * Time.deltaTime;
+            // Debug.Log(this.name + " movement: " + positionDiff); // This is to have the same lenght on both so we can calculate. It's not the real distance, it's the vector normal
+            this.transform.position += positionDiff;
         }
 
         /** ArrowKeys logic + Vectors Sum

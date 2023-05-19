@@ -22,4 +22,29 @@ public class HolisticMath : MonoBehaviour
     static public float Square(float value) {
         return value * value;
     }
+
+    static public float Dot(CoordsMovingTank vector1, CoordsMovingTank vector2) {
+        return (vector1.x * vector2.x + vector1.y * vector2.y + vector1.z * vector2.z);
+    }
+
+    static public float Angle(CoordsMovingTank vector1, CoordsMovingTank vector2) {
+        float dotDivide = Dot(vector1, vector2) / (Distance(new CoordsMovingTank(0, 0, 0), vector1) * Distance(new CoordsMovingTank(0, 0, 0), vector2));
+        return Mathf.Acos(dotDivide); // radians. For degrees * 180/Mathf.PI;
+    }
+
+    static public CoordsMovingTank Rotate(CoordsMovingTank vector, float angle, bool clockwise) { // in radians
+        if (clockwise)
+            angle = 2 * Mathf.PI - angle; // radians - (doing a whole circle anti-clockwise, 360 - angle but in radians)
+        float xVal = vector.x * Mathf.Cos(angle) - vector.y * Mathf.Sin(angle);
+        float yVal = vector.x * Mathf.Sin(angle) + vector.y * Mathf.Cos(angle);
+        return new CoordsMovingTank(xVal, yVal, 0);
+    }
+
+    static public CoordsMovingTank Cross(CoordsMovingTank vector1, CoordsMovingTank vector2) {
+        float xMult = vector1.y * vector2.z - vector1.z * vector2.y;
+        float yMult = vector1.z * vector2.x - vector1.x * vector2.z;
+        float zMult = vector1.x * vector2.y - vector1.y * vector2.x;
+        CoordsMovingTank crossProduct = new CoordsMovingTank(xMult, yMult, zMult);
+        return crossProduct;
+    }
 }
