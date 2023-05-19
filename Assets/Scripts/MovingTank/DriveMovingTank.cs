@@ -5,12 +5,35 @@ using System.Collections;
 
 public class DriveMovingTank : MonoBehaviour
 {
-    Vector2 Up = new Vector2(0, 1);
-    Vector2 Right = new Vector2(1, 0);
-    float speed = 0.2f;
+    // Vector2 Up = new Vector2(0, 1);
+    // Vector2 Right = new Vector2(1, 0);
+    float speed = 5;
+    public GameObject fuel;
+    Vector3 direction;
+    float stoppingDistance = 0.1f;
+
+    void Start() {
+        direction = fuel.transform.position - this.transform.position;
+        Debug.Log("Tank: " + this.name + ", direction: " + direction);
+        CoordsMovingTank dirNormal = HolisticMath.GetNormal(new CoordsMovingTank(direction));
+        direction = dirNormal.ToVector();
+        Debug.Log("Tank: " + this.name + ", normal: " + direction);
+    }
 
     void Update()
     {
+        if (HolisticMath.Distance(new CoordsMovingTank(this.transform.position), new CoordsMovingTank(fuel.transform.position)) > stoppingDistance) {
+        // if (Vector3.Distance(this.transform.position, fuel.transform.position) > stoppingDistance) {
+            // Vector3 direction = direction = fuel.transform.position - this.transform.position; // For slowness at the end of the movement
+            Vector3 test = direction * speed * Time.deltaTime;
+            Debug.Log(this.name + " movement: " + test); // this is to have the same lenght on both so we can calculate. It's not the real distance, it's the vector normal
+            this.transform.position += test;
+
+            // testear dividiendo x e y por la hipotenusa
+        }
+
+        /** ArrowKeys logic + Vectors Sum
+
         Vector3 position = this.transform.position;
 
         if (Input.GetKey(KeyCode.UpArrow)) {
@@ -28,5 +51,6 @@ public class DriveMovingTank : MonoBehaviour
         }
        
         this.transform.position = position;
+        **/
     }
 }
