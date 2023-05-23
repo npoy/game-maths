@@ -14,16 +14,10 @@ public class DriveMovingTank : MonoBehaviour
 
     void Start() {
         direction = fuel.transform.position - this.transform.position;
-        // Debug.Log("Tank: " + this.name + ", direction: " + direction);
         CoordsMovingTank dirNormal = HolisticMath.GetNormal(new CoordsMovingTank(direction));
         direction = dirNormal.ToVector();
-        // Debug.Log("Tank: " + this.name + ", normal: " + direction);
-        float angle = HolisticMath.Angle(new CoordsMovingTank(0, 1, 0), new CoordsMovingTank(direction));
 
-        bool clockwise = false;
-        if (HolisticMath.Cross(new CoordsMovingTank(this.transform.up), dirNormal).z < 0) clockwise = true;
-        CoordsMovingTank newDir = HolisticMath.Rotate(new CoordsMovingTank(this.transform.up), angle, clockwise);
-        this.transform.up = new Vector3(newDir.x, newDir.y, newDir.z);
+        this.transform.up = HolisticMath.LookAt2D(new CoordsMovingTank(this.transform.up), new CoordsMovingTank(this.transform.position), new CoordsMovingTank(fuel.transform.position)).ToVector();
     }
 
     void Update()

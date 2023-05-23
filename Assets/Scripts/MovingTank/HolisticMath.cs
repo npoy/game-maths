@@ -32,6 +32,15 @@ public class HolisticMath : MonoBehaviour
         return Mathf.Acos(dotDivide); // radians. For degrees * 180/Mathf.PI;
     }
 
+    static public CoordsMovingTank LookAt2D(CoordsMovingTank forwardVector, CoordsMovingTank position, CoordsMovingTank focusPoint) {
+        CoordsMovingTank direction = new CoordsMovingTank(focusPoint.x - position.x, focusPoint.y - position.y, position.z);
+        float angle = HolisticMath.Angle(forwardVector, direction);
+        bool clockwise = false;
+        if (HolisticMath.Cross(forwardVector, direction).z < 0) clockwise = true;
+        CoordsMovingTank newDirection = HolisticMath.Rotate(forwardVector, angle, clockwise);
+        return newDirection;
+    }
+
     static public CoordsMovingTank Rotate(CoordsMovingTank vector, float angle, bool clockwise) { // in radians
         if (clockwise)
             angle = 2 * Mathf.PI - angle; // radians - (doing a whole circle anti-clockwise, 360 - angle but in radians)
