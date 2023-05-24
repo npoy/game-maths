@@ -25,9 +25,17 @@ public class UIManager : MonoBehaviour
     }
 
     public void AddEnergy(string amt) {
-        int n;
-        if (int.TryParse(amt, out n)) {
+        float n;
+        if (float.TryParse(amt, out n)) {
             energyAmt.text = amt;
+        }
+    }
+
+    public void SetAngle(string amt) {
+        float n;
+        if (float.TryParse(amt, out n)) {
+            n *= Mathf.PI/180; // Mathf.Deg2Rad;
+            tank.transform.up = HolisticMath.Rotate(new CoordsMovingTank(tank.transform.up), n , false).ToVector();
         }
     }
 }
