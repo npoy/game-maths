@@ -15,8 +15,10 @@ public class PlayerControlledTankDrive : MonoBehaviour
         translation *= Time.deltaTime;
         rotation *= Time.deltaTime;
 
-        transform.Translate(0, translation, 0);
+        // transform.Translate(0, translation, 0);
+        transform.position = HolisticMath.Translate(new CoordsMovingTank(transform.position), new CoordsMovingTank(transform.up), new CoordsMovingTank(0, translation, 0)).ToVector();
 
-        transform.Rotate(0, 0, -rotation);
+        // transform.Rotate(0, 0, -rotation);
+        transform.up = HolisticMath.Rotate(new CoordsMovingTank(transform.up), rotation * Mathf.Deg2Rad, true).ToVector();
     }
 }

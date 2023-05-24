@@ -49,6 +49,21 @@ public class HolisticMath : MonoBehaviour
         return new CoordsMovingTank(xVal, yVal, 0);
     }
 
+    static public CoordsMovingTank Translate(CoordsMovingTank position, CoordsMovingTank facing, CoordsMovingTank vector) {
+        if (HolisticMath.Distance(new CoordsMovingTank(0, 0, 0), vector) <= 0) return position;
+        float angle = HolisticMath.Angle(vector, facing);
+        float worldAngle = HolisticMath.Angle(vector, new CoordsMovingTank(0, 1, 0));
+        bool clockwise = false;
+        if (HolisticMath.Cross(vector, facing).z < 0) clockwise = true;
+
+        vector = HolisticMath.Rotate(vector, angle + worldAngle, clockwise);
+
+        float xVal = position.x + vector.x;
+        float yVal = position.y + vector.y;
+        float zVal = position.z + vector.z;
+        return new CoordsMovingTank(xVal, yVal, zVal);
+    }
+
     static public CoordsMovingTank Cross(CoordsMovingTank vector1, CoordsMovingTank vector2) {
         float xMult = vector1.y * vector2.z - vector1.z * vector2.y;
         float yMult = vector1.z * vector2.x - vector1.x * vector2.z;
