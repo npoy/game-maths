@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PlayerControlledTank
 {
-    public class PlayerControlledTankDrive : MonoBehaviour
+    public class Drive : MonoBehaviour
     {
         public float speed = 10.0f;
         public float rotationSpeed = 100.0f;
